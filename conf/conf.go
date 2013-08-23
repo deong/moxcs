@@ -51,6 +51,23 @@ func Float64Parameter(sec, name string) (val float64, err error) {
 	return 
 }
 
+// BoolParameter returns the value of the parameter as a bool
+// legal values are 0,1,true,false,yes,no (case insensitive)
+func BoolParameter(sec, name string) (val bool, err error) {
+	var s string
+	if s, err = rc.GetString(sec, name); err != nil {
+		switch strings.ToLower(s) {
+		case "0", "false", "no":
+			val = false
+		case "1", "true", "yes":
+			val = true
+		default:
+			val = false
+		}
+	}
+	return
+}
+				
 // IntArrayParameter returns the value of the parameter as a slice of int64s
 func IntArrayParameter(sec, name string) (val []int, err error) {
 	var s string
