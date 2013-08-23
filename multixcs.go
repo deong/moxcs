@@ -26,9 +26,9 @@ func main() {
 
 	rand.Seed(time.Now().UnixNano())
 
-	popSize, err := conf.IntParameter("xcs", "populationSize")
+	popSize, err := conf.IntParameter("xcs", "N")
 	if err != nil {
-		fmt.Printf("required parameter '%v' missing\n", "populationSize")
+		fmt.Printf("required parameter '%v' missing\n", "N")
 		os.Exit(1)
 	}
 
@@ -43,13 +43,11 @@ func main() {
 		fmt.Println(pop[i], "\n")
 	}
 
-	thetaMNA, err := conf.IntParameter("xcs", "thetaMNA")
-	if err != nil {
-		fmt.Printf("required parameter '%v' missing", "thetaMNA")
-		os.Exit(1)
-	}
+	xcs := new(XCS)
+	xcs.Initialize()
+
 	env := "1000101110"
 	fmt.Println("finding match set for state:", env)
-	ms := GenerateMatchSet(pop, env, thetaMNA)
+	ms := xcs.GenerateMatchSet(pop, env)
 	fmt.Println(ms)
 }
