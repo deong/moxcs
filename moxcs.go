@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/deong/multixcs/conf"
+	"github.com/deong/moxcs/conf"
 	"math/rand"
 	"os"
 )
 
 // parameters for the XCS learning algorithm
-type XCS struct {
+type MoXCS struct {
 	// N is maximum size of the population (in micro-classifiers)
 	N int
 
@@ -65,8 +65,8 @@ type XCS struct {
 	DoActionSetSubsumption bool
 }
 
-// Initialize reads the XCS parameters from a configuration file
-func (xcs *XCS) Initialize() {
+// Initialize reads the MoXCS parameters from a configuration file
+func (xcs *MoXCS) Initialize() {
 	if val, err := conf.IntParameter("xcs", "N"); err != nil {
 		fmt.Println("required parameter 'N' not specified")
 		os.Exit(1)
@@ -210,7 +210,7 @@ func (xcs *XCS) Initialize() {
 
 // GenerateMatchSet returns a Population consisting only of the members of the current
 // population that match the given condition
-func (xcs *XCS) GenerateMatchSet(pop Population, cond string) (ms Population) {
+func (xcs *MoXCS) GenerateMatchSet(pop Population, cond string) (ms Population) {
 	ms = Population{}
 	actions := make(map[int]int)
 	for _, chr := range pop {
@@ -231,7 +231,7 @@ func (xcs *XCS) GenerateMatchSet(pop Population, cond string) (ms Population) {
 }
 
 // GenerateCoveringClassifier returns a new classifier that
-func (xcs *XCS) GenerateCoveringClassifier(ms Population, cond string) (cl *Chromosome) {
+func (xcs *MoXCS) GenerateCoveringClassifier(ms Population, cond string) (cl *Chromosome) {
 	// TODO: pass a correct value for numTasks in somehow
 	// TODO: write test for GenerateCoveringClassifier
 	numTasks := 2
@@ -262,7 +262,7 @@ func (xcs *XCS) GenerateCoveringClassifier(ms Population, cond string) (cl *Chro
 }
 
 // GeneratePredictionArray returns a slice of prediction values for each action
-func (xcs *XCS) GeneratePredictionArray(ms Population) (pa map[int][]float64) {
+func (xcs *MoXCS) GeneratePredictionArray(ms Population) (pa map[int][]float64) {
 	// TODO: write test for GeneratePredictionArray
 	pa = make(map[int][]float64)
 	fsa := make(map[int]float64)

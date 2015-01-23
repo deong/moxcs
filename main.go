@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"flag"
-	"github.com/deong/multixcs/conf"
+	"fmt"
+	"github.com/deong/moxcs/conf"
 	"math/rand"
 	"os"
 	"sort"
@@ -43,11 +43,11 @@ func main() {
 		fmt.Println(pop[i], "\n")
 	}
 
-	xcs := new(XCS)
-	xcs.Initialize()
+	cs := new(MoXCS)
+	cs.Initialize()
 
 	env := "1000101110"
 	fmt.Println("finding match set for state:", env)
-	ms := xcs.GenerateMatchSet(pop, env)
+	ms := cs.GenerateMatchSet(pop, env)
 	fmt.Println(ms)
 }
